@@ -1,0 +1,34 @@
+//This is global config file
+
+//Here goes declarations of parallax configs
+
+@parallax
+parallax_default
+parallax_sample
+/parallax
+
+//no parallax
+@parallax_default
+	movePoints = {-1024 1024}
+	movePoints = {1024 1024}
+	scalePoints = {-1024 1024}
+	scalePoints = {-1024 1024}
+/parallax_default
+
+//simple parallax
+@parallax_sample
+	movePoints = {-1024 650}
+	movePoints = {-512 850}
+	movePoints = {0 1024}
+	movePoints = {1024 1280}
+	scalePoints = {-1024 800}
+	scalePoints = {0 1024}
+	scalePoints = {1024 1600}
+/parallax_sample
+
+@context
+	parallaxMode = {parallax_default}
+	internalContext = {640 480}
+	currentScrolling = {0 0}
+	enableScro
+/context

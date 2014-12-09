@@ -1,0 +1,12 @@
+#ifndef DEFINESLIB_GLOBAL_H
+#define DEFINESLIB_GLOBAL_H
+
+#include <QtCore/qglobal.h>
+
+#if defined(DEFINESLIB_LIBRARY)
+#  define DEFINESLIBSHARED_EXPORT Q_DECL_EXPORT
+#else
+#  define DEFINESLIBSHARED_EXPORT Q_DECL_IMPORT
+#endif
+
+#endif // DEFINESLIB_GLOBAL_H
