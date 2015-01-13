@@ -144,7 +144,7 @@ QVector<renderInfo *> renderContext::render()
         destInfo->leftDest_ = srcInfo->leftDest_*contextHeightCoef*parallaxMoveCoef;
         destInfo->topDest_ = srcInfo->topDest_*contextHeightCoef*parallaxMoveCoef;
         if (destInfo->toRect().intersects(scrollRect) ||
-            (destInfo->isScrollable == false && destInfo->toRect().intersects(QRectF(0,contextImage->width(),contextImage->height()))))
+            (destInfo->isScrollable == false && destInfo->toRect().intersects(QRectF(0,0,contextImage->width(),contextImage->height()))))
             result.append(destInfo);
     }
 

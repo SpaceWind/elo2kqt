@@ -155,7 +155,7 @@ void Sprite::addAnimation(QString name, int firstFrame, int lastFrame, int frame
 
 void Sprite::setScrollable(bool isScrollable)
 {
-    lastFrame.isScrollable = isScrollable
+    lastFrame.isScrollable = isScrollable;
 }
 
 bool Sprite::update()

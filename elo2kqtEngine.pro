@@ -20,7 +20,8 @@ SOURCES += main.cpp\
     helpers.cpp \
     spritedescriptionparser.cpp \
     parallax.cpp \
-    rendercontext.cpp
+    rendercontext.cpp \
+    messagecomponent.cpp
 
 HEADERS  += window.h \
     rendermanager.h \
@@ -28,17 +29,17 @@ HEADERS  += window.h \
     helpers.h \
     spritedescriptionparser.h \
     parallax.h \
-    rendercontext.h
+    rendercontext.h \
+    messagecomponent.h
 
 FORMS    +=
 
 RESOURCES += \
     images.qrc
 
-
 win32:CONFIG(release, debug|release): LIBS += -L$$PWD/libs/defines_lib/bin/ -ldefinesLib
 else:win32:CONFIG(debug, debug|release): LIBS += -L$$PWD/libs/defines_lib/bin/ -ldefinesLibd
 else:unix:!macx: LIBS += -L$$PWD/libs/defines_lib/bin/ -ldefinesLib
 
 INCLUDEPATH += $$PWD/libs/defines_lib/headers
-DEPENDPATH += $$PWD/libs/defines_lib/bin
+DEPENDPATH += $$PWD/libs/defines_lib/bin/

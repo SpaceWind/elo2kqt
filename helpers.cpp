@@ -36,11 +36,6 @@ void KeyUpdateProducer::update()
         {
                 if (newResult[i]!=prevResult[i])
                 {
-                        if (newResult[i] == 0)
-                        {
-                                int a;
-                                a = a+3;
-                        }
                         uint vk = ((newResult[i]==1) ? KEY_DOWN : KEY_UP)+ i;
                         for (std::list<KeyListener*>::iterator i = listeners.begin(); i!=listeners.end(); i++)
                                 (*i)->keyUpdate(vk);
