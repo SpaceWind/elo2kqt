@@ -74,28 +74,30 @@ int collisionType(QRect a, QRect b);
 double rectRange(QRect A, QRect B);
 
 
-class KeyListener
+class InputComponent
 {
 public:
-        KeyListener(){;}
-        ~KeyListener(){;}
+        InputComponent(){;}
+        ~InputComponent(){;}
         virtual void keyUpdate(uint spKey)=0;
 };
 
-class KeyUpdateProducer
+/*
+class InputSystem
 {
 public:
-        KeyUpdateProducer();
-        ~KeyUpdateProducer();
+        InputSystem();
+        ~InputSystem();
         void update();
-        void addListener(KeyListener * l);
-        void removeListener(KeyListener * l);
+        void addListener(InputComponent * l);
+        void removeListener(InputComponent * l);
         void clear();
 private:
-        std::list<KeyListener*> listeners;
+        std::list<InputComponent*> listeners;
         kbState prevResult;
 
-};
+};*/
+/*
 struct keyHistory
 {
         keyHistory(){memset(this,0,sizeof(keyHistory));}
@@ -113,7 +115,7 @@ struct keyHistory
         uint keyTime[KH_BUFFER_SIZE];
         bool keyUp[KH_BUFFER_SIZE];
         int index;
-};
+};*/
 
 
 struct PhysForce

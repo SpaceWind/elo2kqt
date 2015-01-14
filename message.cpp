@@ -1,4 +1,4 @@
-#include "messagecomponent.h"
+#include "message.h"
 
 MessageComponent::MessageComponent(QObject *parent) :
     QObject(parent)

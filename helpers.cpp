@@ -10,26 +10,27 @@ double rectRange(QRect A, QRect B)
                 pow(ac.y()-bc.y(),2));
 }
 //---------------------------------------------------------------------------
-KeyUpdateProducer::KeyUpdateProducer()
+/*
+InputSystem::InputSystem()
 {
 }
-KeyUpdateProducer::~KeyUpdateProducer()
+InputSystem::~InputSystem()
 {
         ;
 }
-void KeyUpdateProducer::addListener(KeyListener * l)
+void InputSystem::addListener(InputComponent * l)
 {
         listeners.push_back(l);
 }
-void KeyUpdateProducer::removeListener(KeyListener * l)
+void InputSystem::removeListener(InputComponent * l)
 {
         listeners.remove(l);
 }
-void KeyUpdateProducer::clear()
+void InputSystem::clear()
 {
         listeners.clear();
 }
-void KeyUpdateProducer::update()
+void InputSystem::update()
 {
         kbState newResult = kbState::get(KB_STATE_BOOLEAN_FORMAT);
         for (int i=0; i<256; i++)
@@ -37,12 +38,12 @@ void KeyUpdateProducer::update()
                 if (newResult[i]!=prevResult[i])
                 {
                         uint vk = ((newResult[i]==1) ? KEY_DOWN : KEY_UP)+ i;
-                        for (std::list<KeyListener*>::iterator i = listeners.begin(); i!=listeners.end(); i++)
+                        for (std::list<InputComponent*>::iterator i = listeners.begin(); i!=listeners.end(); i++)
                                 (*i)->keyUpdate(vk);
                 }
         }
         prevResult = newResult;
-}
+}*/
 
 kbState kbState::get(int format)
 {
@@ -356,4 +357,10 @@ QImage *copyImage(QImage *src)
     p.setCompositionMode(QPainter::CompositionMode_SourceOver);
     p.drawImage(QPoint(0,0),*src);
     return context;
+}
+
+
+keyHistory::keyHistory(int size)
+{
+
 }

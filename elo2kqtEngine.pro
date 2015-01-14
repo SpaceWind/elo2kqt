@@ -21,7 +21,10 @@ SOURCES += main.cpp\
     spritedescriptionparser.cpp \
     parallax.cpp \
     rendercontext.cpp \
-    messagecomponent.cpp
+    gamemanager.cpp \
+    components.cpp \
+    message.cpp \
+    inputsystem.cpp
 
 HEADERS  += window.h \
     rendermanager.h \
@@ -30,7 +33,10 @@ HEADERS  += window.h \
     spritedescriptionparser.h \
     parallax.h \
     rendercontext.h \
-    messagecomponent.h
+    gamemanager.h \
+    components.h \
+    message.h \
+    inputsystem.h
 
 FORMS    +=
 

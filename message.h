@@ -1,5 +1,5 @@
-#ifndef MESSAGECOMPONENT_H
-#define MESSAGECOMPONENT_H
+#ifndef MESSAGE_H
+#define MESSAGE_H
 
 #include <QObject>
 #include <QVector>
@@ -40,6 +40,10 @@ protected:
 
     int lastActive;
 };
+
+
+
+
 
 
 #endif // MESSAGECOMPONENT_H
