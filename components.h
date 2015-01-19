@@ -1,8 +1,9 @@
 #ifndef COMPONENTS_H
 #define COMPONENTS_H
 #include <QObject>
-#include "message.h"
 
+
+class Message;
 class MessageComponent
 {
 public:

@@ -36,7 +36,8 @@ public:
     static inputCombo fromString(QString s);
     void parse (QString s);
 private:
-    QList<QList<keyEventDescriptor> > parsed;
+    QList<QList<QList<keyEventDescriptor> > > parsed;
+    int getVirtualKey(QChar key);
     QList<int> timeDif;
     QString name;
 };

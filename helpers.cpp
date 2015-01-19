@@ -59,7 +59,7 @@ kbState kbState::get(int format)
         return out;
 }
 //---------------------------------------------------------------------------
-
+/*
 void keyHistory::updateKey(uint spKey)
 {
         bool up = (spKey&0xFF00) == KEY_UP;
@@ -148,7 +148,7 @@ bool keyHistory::testCombo(QString c) const
         }
         return comboFound;
 
-}
+}*/
 //---------------------------------------------------------------------------
 PhysForce operator+ (const PhysForce& pf1, const PhysForce& pf2)
 {
@@ -359,8 +359,3 @@ QImage *copyImage(QImage *src)
     return context;
 }
 
-
-keyHistory::keyHistory(int size)
-{
-
-}

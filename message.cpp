@@ -1,10 +1,5 @@
 #include "message.h"
 
-MessageComponent::MessageComponent(QObject *parent) :
-    QObject(parent)
-{
-}
-
 
 
 MessagePool* MessagePool::instance = 0;
