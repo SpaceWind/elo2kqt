@@ -1,0 +1,1 @@
+start app/elo2kqtEngine.pro

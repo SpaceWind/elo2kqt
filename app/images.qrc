@@ -1,0 +1,10 @@
+<RCC>
+    <qresource prefix="/">
+        <file>../data/fx/textures/test_spr_.png</file>
+        <file>../data/fx/textures/test_spr.png</file>
+        <file>../data/fx/textures/pic2.png</file>
+        <file>../data/fx/textures/kappa_blue_boots.png</file>
+        <file>../data/fx/textures/kappa.png</file>
+        <file>../data/fx/textures/horse.png</file>
+    </qresource>
+</RCC>
