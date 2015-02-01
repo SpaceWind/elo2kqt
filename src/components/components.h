@@ -1,9 +1,12 @@
 #ifndef COMPONENTS_H
 #define COMPONENTS_H
 #include <QObject>
+#include <Qlist>
+#include "inputsystem.h"
 
 
 class Message;
+class inputCombo;
 class MessageComponent
 {
 public:
@@ -15,14 +18,5 @@ public:
     int ownerType;
 };
 
-class InputComponent : public QObject
-{
-    Q_OBJECT
-public:
-
-public slots:
-    virtual void keyPressed(int key)=0;
-    virtual void keyReleased(int key)=0;
-};
 
 #endif // COMPONENT_H
