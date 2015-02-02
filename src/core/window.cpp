@@ -10,6 +10,7 @@ Window::Window()
     rm->init();
     rm->showFullScreen();
     rm->move(0,0);
+    this->installEventFilter(&inputSystem);
 
 
     QTimer *timer = new QTimer(this);
@@ -25,4 +26,3 @@ void Window::messageCycle()
 {
     ;
 }
-

@@ -4,8 +4,7 @@
 #include <QObject>
 #include <QVector>
 #include <QList>
-#include <components.h>
-
+/*
 struct Message
 {
     Message();
@@ -41,7 +40,7 @@ protected:
 
     int lastActive;
 };
-
+*/
 
 
 

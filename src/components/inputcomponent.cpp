@@ -114,22 +114,21 @@ void inputCombo::parse(QString s)
 
 bool inputCombo::findCombo(keyHistory &history)
 {
-    bool comboFound = false;
+    bool comboFound = true;
     int comboNumber = 0;
     for (QList<QList<QList<keyEventDescriptor> > >::iterator it = parsed.begin(); it != parsed.end(); ++it)
     {
         bool everyComboFound = true;
         QList<QList<keyEventDescriptor> > comboParts = (*it);
-        for (QList<QList<keyEventDescriptor> >::iterator comboIterator = comboParts.begin(); comboIterator != comboParts.end(); ++comboParts)
+        for (QList<QList<keyEventDescriptor> >::iterator comboIterator = comboParts.begin(); comboIterator != comboParts.end(); ++comboIterator)
         {
-            bool everyTokenFound = true;
-            QList<keyEventDescriptor> tokens = (*comboIterator);
             int maxTime = timeDif.at(comboNumber);
-
-
+            everyComboFound = testCombo(*comboIterator,history,maxTime);
             comboNumber++;
         }
+        comboFound = everyComboFound;
     }
+    return comboFound;
 }
 
 int inputCombo::getVirtualKey(QChar key)
@@ -214,11 +213,52 @@ int inputCombo::getVirtualKey(QChar key)
 
 bool inputCombo::testCombo(QList<keyEventDescriptor> tokens, keyHistory &history, int maxTime)
 {
-
+    bool comboFound = true;
+    int startTime = 0;
+    int endTime = 0;
+    for (QList<keyEventDescriptor>::iterator it = history.history.begin(); it != history.history.end(); ++it)
+    {
+        comboFound = true;
+        QList<keyEventDescriptor>::iterator historyIterator = it;
+        startTime = (*it).timeEvent;
+        for (QList<keyEventDescriptor>::iterator tokenIterator = tokens.begin(); tokenIterator != tokens.end(); ++tokenIterator, ++historyIterator)
+        {
+            if (historyIterator != history.history.end() && (*it) == (*historyIterator))
+                endTime = (*tokenIterator).timeEvent;
+            else
+            {
+                comboFound = false;
+                break;
+            }
+        }
+        if (comboFound && endTime - startTime <= maxTime)
+            break;
+        else
+            comboFound = false;
+    }
+    return comboFound;
 }
 
 
 void InputComponent::addCombo(QString s)
 {
     combos.append(inputCombo::fromString(s));
+}
+
+QStringList InputComponent::findCombos()
+{
+    QStringList activatedCombos;
+    for (QList<inputCombo>::iterator it = combos.begin(); it != combos.end(); ++it)
+    {
+        if ((*it).findCombo(history))
+            activatedCombos.append((*it).getName().toLower());
+    }
+    return activatedCombos;
+}
+
+void InputComponent::processAllCombos()
+{
+    QStringList activatedCombos = findCombos();
+    for(QStringList::iterator it = activatedCombos.begin(); it != activatedCombos.end(); ++it)
+        processCombo(*it);
 }

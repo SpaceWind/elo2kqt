@@ -19,8 +19,8 @@
 
 QT_BEGIN_MOC_NAMESPACE
 struct qt_meta_stringdata_InputComponent_t {
-    QByteArrayData data[8];
-    char stringdata[61];
+    QByteArrayData data[12];
+    char stringdata[112];
 };
 #define QT_MOC_LITERAL(idx, ofs, len) \
     Q_STATIC_BYTE_ARRAY_DATA_HEADER_INITIALIZER_WITH_OFFSET(len, \
@@ -35,11 +35,17 @@ QT_MOC_LITERAL(2, 26, 0),
 QT_MOC_LITERAL(3, 27, 3),
 QT_MOC_LITERAL(4, 31, 11),
 QT_MOC_LITERAL(5, 43, 6),
-QT_MOC_LITERAL(6, 50, 8),
-QT_MOC_LITERAL(7, 59, 1)
+QT_MOC_LITERAL(6, 50, 12),
+QT_MOC_LITERAL(7, 63, 9),
+QT_MOC_LITERAL(8, 73, 8),
+QT_MOC_LITERAL(9, 82, 1),
+QT_MOC_LITERAL(10, 84, 10),
+QT_MOC_LITERAL(11, 95, 16)
     },
     "InputComponent\0keyPressed\0\0key\0"
-    "keyReleased\0update\0addCombo\0s"
+    "keyReleased\0update\0processCombo\0"
+    "comboName\0addCombo\0s\0findCombos\0"
+    "processAllCombos"
 };
 #undef QT_MOC_LITERAL
 
@@ -49,7 +55,7 @@ static const uint qt_meta_data_InputComponent[] = {
        7,       // revision
        0,       // classname
        0,    0, // classinfo
-       4,   14, // methods
+       7,   14, // methods
        0,    0, // properties
        0,    0, // enums/sets
        0,    0, // constructors
@@ -57,16 +63,22 @@ static const uint qt_meta_data_InputComponent[] = {
        0,       // signalCount
 
  // slots: name, argc, parameters, tag, flags
-       1,    1,   34,    2, 0x0a /* Public */,
-       4,    1,   37,    2, 0x0a /* Public */,
-       5,    0,   40,    2, 0x0a /* Public */,
-       6,    1,   41,    2, 0x0a /* Public */,
+       1,    1,   49,    2, 0x0a /* Public */,
+       4,    1,   52,    2, 0x0a /* Public */,
+       5,    0,   55,    2, 0x0a /* Public */,
+       6,    1,   56,    2, 0x0a /* Public */,
+       8,    1,   59,    2, 0x0a /* Public */,
+      10,    0,   62,    2, 0x0a /* Public */,
+      11,    0,   63,    2, 0x0a /* Public */,
 
  // slots: parameters
     QMetaType::Void, QMetaType::Int,    3,
     QMetaType::Void, QMetaType::Int,    3,
     QMetaType::Void,
     QMetaType::Void, QMetaType::QString,    7,
+    QMetaType::Void, QMetaType::QString,    9,
+    QMetaType::QStringList,
+    QMetaType::Void,
 
        0        // eod
 };
@@ -79,7 +91,11 @@ void InputComponent::qt_static_metacall(QObject *_o, QMetaObject::Call _c, int _
         case 0: _t->keyPressed((*reinterpret_cast< int(*)>(_a[1]))); break;
         case 1: _t->keyReleased((*reinterpret_cast< int(*)>(_a[1]))); break;
         case 2: _t->update(); break;
-        case 3: _t->addCombo((*reinterpret_cast< QString(*)>(_a[1]))); break;
+        case 3: _t->processCombo((*reinterpret_cast< QString(*)>(_a[1]))); break;
+        case 4: _t->addCombo((*reinterpret_cast< QString(*)>(_a[1]))); break;
+        case 5: { QStringList _r = _t->findCombos();
+            if (_a[0]) *reinterpret_cast< QStringList*>(_a[0]) = _r; }  break;
+        case 6: _t->processAllCombos(); break;
         default: ;
         }
     }
@@ -110,13 +126,13 @@ int InputComponent::qt_metacall(QMetaObject::Call _c, int _id, void **_a)
     if (_id < 0)
         return _id;
     if (_c == QMetaObject::InvokeMetaMethod) {
-        if (_id < 4)
+        if (_id < 7)
             qt_static_metacall(this, _c, _id, _a);
-        _id -= 4;
+        _id -= 7;
     } else if (_c == QMetaObject::RegisterMethodArgumentMetaType) {
-        if (_id < 4)
+        if (_id < 7)
             *reinterpret_cast<int*>(_a[0]) = -1;
-        _id -= 4;
+        _id -= 7;
     }
     return _id;
 }

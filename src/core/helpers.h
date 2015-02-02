@@ -50,6 +50,8 @@ typedef unsigned char byte;
 
 
 QStringList ReadFileStrings(QString filename);
+bool isStringLike(QString s, QString pattern, bool caseSensitive=false);
+bool applySelector(QString s, QString selector, bool caseSensitive=false);
 
 struct Pointer2D
 {
@@ -72,50 +74,6 @@ struct kbState
 
 int collisionType(QRect a, QRect b);
 double rectRange(QRect A, QRect B);
-
-
-class InputComponent
-{
-public:
-        InputComponent(){;}
-        ~InputComponent(){;}
-        virtual void keyUpdate(uint spKey)=0;
-};
-
-/*
-class InputSystem
-{
-public:
-        InputSystem();
-        ~InputSystem();
-        void update();
-        void addListener(InputComponent * l);
-        void removeListener(InputComponent * l);
-        void clear();
-private:
-        std::list<InputComponent*> listeners;
-        kbState prevResult;
-
-};*/
-/*
-struct keyHistory
-{
-        keyHistory(){memset(this,0,sizeof(keyHistory));}
-        ~keyHistory(){;}
-        void updateKey(uint spKey);
-        int getLastKey(){return keys[qMax(index==KH_BUFFER_BOUND?KH_BUFFER_BOUND:index-1,0)];}
-        bool isLastKeyUp(){return keyUp[qMax(index==KH_BUFFER_BOUND?KH_BUFFER_BOUND:index-1,0)];}
-        bool isLastKeyDown(){return !isLastKeyUp();}
-
-        int getSKey(int i) const {return (keyUp[i]?KEY_UP:KEY_DOWN) + keys[i];}
-
-        bool testCombo(QString combo) const;
-
-        int keys[KH_BUFFER_SIZE];
-        uint keyTime[KH_BUFFER_SIZE];
-        bool keyUp[KH_BUFFER_SIZE];
-        int index;
-};*/
 
 
 struct PhysForce

@@ -58,6 +58,8 @@ void RenderManager::renderFunction(QPainter *painter, QPaintEvent *event)
     }
 }
 
+
+
 void RenderManager::renderFunction()
 {
     if (s->update())

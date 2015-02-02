@@ -75,6 +75,8 @@ void *InputSystem::qt_metacast(const char *_clname)
     if (!_clname) return 0;
     if (!strcmp(_clname, qt_meta_stringdata_InputSystem.stringdata))
         return static_cast<void*>(const_cast< InputSystem*>(this));
+    if (!strcmp(_clname, "AbstractSystem"))
+        return static_cast< AbstractSystem*>(const_cast< InputSystem*>(this));
     return QObject::qt_metacast(_clname);
 }
 

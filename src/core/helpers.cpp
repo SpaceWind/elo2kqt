@@ -10,41 +10,6 @@ double rectRange(QRect A, QRect B)
                 pow(ac.y()-bc.y(),2));
 }
 //---------------------------------------------------------------------------
-/*
-InputSystem::InputSystem()
-{
-}
-InputSystem::~InputSystem()
-{
-        ;
-}
-void InputSystem::addListener(InputComponent * l)
-{
-        listeners.push_back(l);
-}
-void InputSystem::removeListener(InputComponent * l)
-{
-        listeners.remove(l);
-}
-void InputSystem::clear()
-{
-        listeners.clear();
-}
-void InputSystem::update()
-{
-        kbState newResult = kbState::get(KB_STATE_BOOLEAN_FORMAT);
-        for (int i=0; i<256; i++)
-        {
-                if (newResult[i]!=prevResult[i])
-                {
-                        uint vk = ((newResult[i]==1) ? KEY_DOWN : KEY_UP)+ i;
-                        for (std::list<InputComponent*>::iterator i = listeners.begin(); i!=listeners.end(); i++)
-                                (*i)->keyUpdate(vk);
-                }
-        }
-        prevResult = newResult;
-}*/
-
 kbState kbState::get(int format)
 {
         kbState out;
@@ -59,96 +24,7 @@ kbState kbState::get(int format)
         return out;
 }
 //---------------------------------------------------------------------------
-/*
-void keyHistory::updateKey(uint spKey)
-{
-        bool up = (spKey&0xFF00) == KEY_UP;
-        if (index == KH_BUFFER_BOUND)
-        {
-                for (int i=0; i<KH_BUFFER_BOUND; i++)
-                {
-                        keys[i]=keys[i+1];
-                        keyTime[i]=keyTime[i+1];
-                        keyUp[i] = keyUp[i+1];
-                }
-                keys[KH_BUFFER_BOUND] = spKey&0xFF;
-                keyUp[KH_BUFFER_BOUND]= up;
-                keyTime[KH_BUFFER_BOUND] = ::GetTickCount();
-        }
-        else
-        {
-                keys[index] = spKey&0xFF;
-                keyUp[index]= up;
-                keyTime[index] = ::GetTickCount();
-                index++;
-        }
-}
-bool keyHistory::testCombo(QString c) const
-{
-        QString combo = c;
-        combo = combo.replace(" ", "").replace(".", "*");
 
-        int _keys [16]; memset(_keys,0,16);
-        int lastkey = 0;
-        QStringList dcomp;
-        dcomp = combo.split("-");
-
-        uint maxLen = dcomp.at(0).toInt();
-        combo = dcomp.at(1).toLocal8Bit();
-        bool mode = 0;
-
-        QByteArray ba = combo.toLatin1();
-        for (int i=0; i<combo.length(); i++)
-        {
-                if (ba.data()[i] == '!')
-                {
-                        mode = 1;
-                        continue;
-                }
-                else    if (i!=0)
-                                if (ba.data()[i-1] != '!')
-                                        mode = 0;
-                _keys[lastkey] = mode?KEY_UP:KEY_DOWN;
-                if (ba.data()[i] == '>')
-                        _keys[lastkey] += VK_RIGHT;
-                else if (ba.data()[i] == '<')
-                        _keys[lastkey] += VK_LEFT;
-                else if (ba.data()[i] == '^')
-                        _keys[lastkey] += VK_UP;
-                else if (ba.data()[i] == '*')
-                        _keys[lastkey] += VK_DOWN;
-                else
-                        _keys[lastkey] += ba.data()[i];
-                lastkey++;
-        }
-        bool comboFound = false;
-        for (int ki = 0; ki<KH_BUFFER_SIZE+1-lastkey; ki++)
-        {
-                if (getSKey(ki) == 0)
-                        break;
-                for (int ci=0; ci<lastkey;ci++)
-                {
-                        if (getSKey(ki+ci) != _keys[ci])
-                        {
-                                comboFound = false;
-                                break;
-                        }
-                        else if ((ci == lastkey-1) && (getSKey(ki+ci) == _keys[ci]))
-                        {
-                                if ((keyTime[ki+ci] - keyTime[ki]) < maxLen)
-                                if (::GetTickCount()-keyTime[ki+ci] < 1000)
-                                {
-                                        comboFound = true;
-                                        break;
-                                }
-                        }
-                }
-                if (comboFound)
-                        break;
-        }
-        return comboFound;
-
-}*/
 //---------------------------------------------------------------------------
 PhysForce operator+ (const PhysForce& pf1, const PhysForce& pf2)
 {
@@ -359,3 +235,50 @@ QImage *copyImage(QImage *src)
     return context;
 }
 
+
+
+bool isStringLike(QString s, QString pattern, bool caseSensitive)
+{
+    if (!caseSensitive)
+    {
+        s = s.toLower();
+        pattern = pattern.toLower();
+    }
+    QStringList patternTokens = pattern.split("%");
+    int prevEnd = 0;
+    foreach (const QString& token, patternTokens)
+    {
+        int foundBegin = s.indexOf(token,prevEnd);
+        if (foundBegin != -1)
+            prevEnd = foundBegin+token.length();
+        else
+            return false;
+    }
+    return true;
+}
+
+
+bool applySelector(QString s, QString selector, bool caseSensitive)
+{
+    if (!caseSensitive)
+    {
+        s = s.toLower();
+        selector = selector.toLower();
+    }
+    selector = selector.simplified();
+    s = s.simplified();
+
+    if (selector.indexOf("{") == 0)
+    {
+        selector = selector.replace("{","").replace("}","");
+        return isStringLike(s,selector);
+    }
+    else if (selector.indexOf("[") == 0)
+    {
+        selector = selector.replace("[","").replace("]","");
+        QStringList tokens = selector.split(" ");
+        return tokens.contains(s);
+    }
+    else
+        return s == selector;
+}

@@ -1,7 +1,7 @@
 #include "message.h"
 
 
-
+/*
 MessagePool* MessagePool::instance = 0;
 
 
@@ -52,3 +52,4 @@ void MessagePool::freeMessages()
     for (int i=0; i<activeMessages.count(); ++i)
         delete activeMessages.at(i);
 }
+*/

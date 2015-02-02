@@ -4,6 +4,7 @@
 #include <QWidget>
 #include <QtOpenGL>
 #include <rendermanager.h>
+#include "inputsystem.h"
 
 class RenderManager;
 class Window : public QWidget
@@ -23,6 +24,8 @@ protected:
 private:
     RenderManager * rm;
     int elapsed;
+    InputSystem inputSystem;
+
 };
 
 #endif // WINDOW_H

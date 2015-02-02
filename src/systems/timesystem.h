@@ -3,6 +3,7 @@
 
 #include <QTime>
 #include <QHash>
+#include "abstractystem.h"
 
 class TimeSystem
 {
@@ -11,7 +12,7 @@ public:
     ~TimeSystem(){;}
     int getSystemTime() {return msecs;}
     int elapsed(int prev) {return msecs - prev;}
-    void update();
+    virtual bool update();
 protected:
     TimeSystem();
     int msecs;

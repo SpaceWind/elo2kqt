@@ -26,6 +26,7 @@ protected:
     void paintEvent(QPaintEvent *event);
     void renderFunction(QPainter *painter, QPaintEvent *event);
 
+
    // QVector<renderInfo> filterSprites(QRect outerRect, QRect innerRect, QVector<renderInfo> sprites);
 
 private:

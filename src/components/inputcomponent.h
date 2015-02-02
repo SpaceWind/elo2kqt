@@ -3,6 +3,8 @@
 
 #include <QObject>
 #include <QWidget>
+#include <QStringList>
+#include "components.h"
 
 class keyHistory;
 struct keyEventDescriptor
@@ -28,6 +30,7 @@ public:
     static inputCombo fromString(QString s);
     void parse (QString s);
     bool findCombo(keyHistory& history);
+    QString getName() {return name;}
 private:
     QList<QList<QList<keyEventDescriptor> > > parsed;
     int getVirtualKey(QChar key);
@@ -52,7 +55,7 @@ public:
 };
 //------------------------------------------------------------------------------------------
 
-class InputComponent : public QObject
+class InputComponent : public QObject, public GameComponent
 {
     Q_OBJECT
 public:
@@ -60,11 +63,29 @@ public:
 public slots:
     virtual void keyPressed(int key)=0;
     virtual void keyReleased(int key)=0;
-    virtual void update()=0;
+    virtual void processCombo(QString comboName)=0;
+
     void addCombo(QString s);
+    QStringList findCombos();
+    void processAllCombos();
 protected:
     QList<inputCombo> combos;
     keyHistory history;
+};
+
+class MouseInputComponent : public QObject, public GameComponent
+{
+    Q_OBJECT
+public:
+    explicit MouseInputComponent(QObject *parent = 0);
+    enum mouseButton {MOUSE_LEFT = 0, MOUSE_RIGHT = 1, MOUSE_BOTH = 2, MOUSE_NONE = 3};
+signals:
+
+public slots:
+    virtual void mousePressed(mouseButton mb, int x, int y)=0;
+    virtual void mouseReleased(mouseButton mb, int x, int y)=0;
+    virtual void mouseMove(mouseButton mb, int x, int y)=0;
+    virtual void mouseDoubleClick(mouseButton mb, int x, int y)=0;
 };
 
 #endif // INPUTCOMPONENT_H

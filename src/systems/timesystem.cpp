@@ -13,11 +13,12 @@ TimeSystem *TimeSystem::getInstance()
     return instance;
 }
 
-void TimeSystem::update()
+bool TimeSystem::update()
 {
     QTime currentTime = QTime::currentTime();
     msecs += lastTime.msecsTo(currentTime);
     lastTime = currentTime;
+    return true;
 }
 TimeSystem* TimeSystem::instance = 0;
 

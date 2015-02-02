@@ -2,11 +2,15 @@
 #define COMPONENTS_H
 #include <QObject>
 #include <Qlist>
-#include "inputsystem.h"
 
+class GameComponent
+{
+public:
+    virtual bool update()=0;
+};
 
+/*
 class Message;
-class inputCombo;
 class MessageComponent
 {
 public:
@@ -17,6 +21,6 @@ public:
     virtual Message* selfAddMessage()=0;
     int ownerType;
 };
-
+*/
 
 #endif // COMPONENT_H
