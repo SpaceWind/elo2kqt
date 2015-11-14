@@ -2,6 +2,7 @@
 #include <QBitmap>
 #include <QTimer>
 #include <QList>
+#include <QTransform>
 #include <defines.h>
 
 RenderManager::RenderManager(QWidget *parent, int width, int height)
@@ -14,21 +15,29 @@ RenderManager::RenderManager(QWidget *parent, int width, int height)
 
 void RenderManager::init()
 {
-
-    background = QBrush(QColor(64, 98, 64));
+    background = QBrush(QColor(0, 0, 0));
     SpriteFabric * sf = SpriteFabric::getInstance();
-    parallaxConfig p("data/config.txt","parallax_default");
-    renderContext_.createContext(640,480,this->width(),this->height());
-    renderContext_.setParallaxMode(p);
-    renderContext_.setScroll(0,0);
-    renderContext_.enableScolling();
 
     QString filename = "data/fx/sf.txt";
     sf->scanSprites(filename);
     sf->preload(filename);
-    s = sf->newSprite("kappa+kappa_blue_boots");
-    s->setAnimation("go_right");
-    renderContext_.addSprite(s->getFrame());
+}
+
+void RenderManager::addSprite(Sprite *s)
+{
+    renderContext_->addSprite(s->getFrame());
+    sprites.append(s);
+}
+
+void RenderManager::removeSprite(Sprite *s)
+{
+    renderContext_->removeSprite(s->getFrame());
+    sprites.removeAt(sprites.indexOf(s));
+}
+
+void RenderManager::setContext(renderContext *c)
+{
+    renderContext_ = c;
 }
 
 void RenderManager::renderFunction(QPainter *painter, QPaintEvent *event)
@@ -48,21 +57,48 @@ void RenderManager::renderFunction(QPainter *painter, QPaintEvent *event)
     }
     painter->fillRect(event->rect(), background);
 
-    renderContext_.scroll(-0.4f,-0.8f);
-    s->move(0.8f,0.0f);
-    auto filteredSprites = renderContext_.render();
+    auto filteredSprites = renderContext_->render();
     foreach (renderInfo * item, filteredSprites)
     {
         QImage *img = SpriteFabric::getInstance()->getSpriteFrames(item->spriteType_);
-        painter->drawImage(item->toRect(),*img, item->sourceRect());
+
+        QRectF itemRect = item->toRect();
+
+        if (item->rotate_ != 0.0f)
+        {
+            QTransform trans;
+
+            trans.translate(itemRect.left() + itemRect.width()/2.0f, itemRect.top() + itemRect.height()/2.0f);
+            trans.rotate(item->rotate_);
+            painter->setTransform(trans);
+            painter->drawImage(QRectF(-itemRect.width()/2.f,
+                                      -itemRect.height()/2.f,
+                                      itemRect.width(),
+                                      itemRect.height()),
+                               *img, item->sourceRect());
+            painter->resetTransform();
+        }
+        else
+            painter->drawImage(itemRect,*img,item->sourceRect());
     }
+}
+
+bool RenderManager::updateSprites()
+{
+    bool needRender = false;
+    foreach(Sprite * s, sprites)
+    {
+        if (s->update())
+            needRender = true;
+    }
+    return needRender;
 }
 
 
 
 void RenderManager::renderFunction()
 {
-    if (s->update())
+    if (updateSprites())
        repaint();
 }
 void RenderManager::paintEvent(QPaintEvent *event)

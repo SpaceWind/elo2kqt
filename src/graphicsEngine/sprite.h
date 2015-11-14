@@ -12,7 +12,7 @@
 #include "spritedescriptionparser.h"
 #include "helpers.h"
 
-#define MIN_Z       -1024
+#define MIN_Z       0
 
 
 
@@ -114,11 +114,12 @@ public:
     renderInfo* getFrame(){return &lastFrame;}
 
     void setPosition(float left, float top, float z=MIN_Z);
-
-    void move(float x, float y, float z_=0.);
+    void move(float x, float y, float z_=MIN_Z);
     void scaleTranslate(float xMult, float yMult);
     bool isSpriteCollision(Sprite * s);
     bool isCursorCollision(int curX, int curY);
+    void rotate(float a);
+    void setRotate(float a);
 
     void pause() {isPaused = !(isTimerStarted = false);}
     void unpause() {isPaused = false;}

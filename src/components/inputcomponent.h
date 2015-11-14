@@ -42,6 +42,7 @@ private:
 class keyHistory
 {
 public:
+    keyHistory();
     keyHistory(int size);
     ~keyHistory(){;}
     void add(const keyEventDescriptor& kd);
@@ -63,7 +64,7 @@ public:
 public slots:
     virtual void keyPressed(int key)=0;
     virtual void keyReleased(int key)=0;
-    virtual void processCombo(QString comboName)=0;
+    virtual void processCombo(QString){;}
 
     void addCombo(QString s);
     QStringList findCombos();

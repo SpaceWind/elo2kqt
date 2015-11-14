@@ -5,6 +5,7 @@
 #include <QOpenGLFunctions>
 #include <QVector>
 #include <QRect>
+#include <QRectF>
 #include <QtGlobal>
 #include <QImage>
 #include <QBitmap>
@@ -74,6 +75,7 @@ struct kbState
 
 int collisionType(QRect a, QRect b);
 double rectRange(QRect A, QRect B);
+QRectF invertRect(const QRectF &src);
 
 
 struct PhysForce
@@ -119,4 +121,5 @@ public:
 private:
         std::map<QString, PhysForce> forces;
 };
+
 #endif // HELPERS_H

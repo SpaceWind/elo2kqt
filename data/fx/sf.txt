@@ -8,6 +8,7 @@ kappa
 test_spr
 kappa
 kappa_blue_boots
+horse
 /.
 
 @test_spr
@@ -26,6 +27,14 @@ kappa_blue_boots
 	animation = {9 16 25} as go_left
 	animation = {0 8 25} as go_right
 /kappa
+
+@horse
+	texture = {horse.png}
+	textureOffset = {0 0}
+	frameSize = {1980 1050}
+	transparentColor = {255 255 255}
+	animation = {0 0 10000} as default
+/horse
 
 
 

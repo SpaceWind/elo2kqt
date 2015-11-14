@@ -24,6 +24,12 @@ keyEventDescriptor keyEventDescriptor::create(int key_, keyEventDescriptor::keyE
 }
 
 
+keyHistory::keyHistory()
+{
+    maxSize = 32;
+    currentSize = 0;
+}
+
 keyHistory::keyHistory(int size)
 {
     maxSize = size;

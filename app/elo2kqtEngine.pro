@@ -15,8 +15,8 @@ TEMPLATE = app
 include(../src/graphicsEngine/engine.pri)
 include(../src/components/components.pri)
 include(../src/core/core.pri)
-include(../src/entities/entities.pri)
 include(../src/systems/systems.pri)
+include(../src/entities/entities.pri)
 
 SOURCES += main.cpp \
 

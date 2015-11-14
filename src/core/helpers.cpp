@@ -282,3 +282,10 @@ bool applySelector(QString s, QString selector, bool caseSensitive)
     else
         return s == selector;
 }
+
+
+QRectF invertRect(const QRectF &src)
+{
+    QRectF result(0.f - src.left(),0.f - src.top(),src.width(), src.height());
+    return result;
+}

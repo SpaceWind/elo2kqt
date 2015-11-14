@@ -8,13 +8,43 @@ Window::Window()
 
     rm = new RenderManager(this, screenRect.width(), screenRect.height());
     rm->init();
+
+    const int SCREEN_WIDTH = screenRect.width();
+    const int SCREEN_HEIGHT = screenRect.height();
+    const int CONTEXT_WIDTH = 384/2;
+    const int CONTEXT_HEIGHT = 210/2;
+
+    parallaxConfig p("data/config.txt","parallax_default");
+    auto renderContext_ = new renderContext(this);
+    renderContext_->createContext(CONTEXT_WIDTH,CONTEXT_HEIGHT,SCREEN_WIDTH,SCREEN_HEIGHT);
+    renderContext_->setParallaxMode(p);
+    renderContext_->setScroll(0,0);
+    renderContext_->enableScolling();
+    rm->setContext(renderContext_);
+
+    SpriteFabric * sf = SpriteFabric::getInstance();
+    Sprite *s = sf->newSprite("kappa+kappa_blue_boots");
+    s->setAnimation("go_right");
+    s->move(100,100);
+    rm->addSprite(s);
+
+    Sprite * horse = sf->newSprite("horse");
+    horse->setAnimation("default");
+    horse->move(0,0,-1);
+    horse->scaleTranslate(float(CONTEXT_WIDTH)/horse->getRect().width(),float(CONTEXT_HEIGHT)/horse->getRect().height());
+   // horse->rotate(45.f);
+    rm->addSprite(horse);
+
     rm->showFullScreen();
     rm->move(0,0);
     this->installEventFilter(&inputSystem);
 
+    sp = new SimplePlayer(rm);
+    inputSystem.addKeyListener(sp);
+
 
     QTimer *timer = new QTimer(this);
-    connect(timer, SIGNAL(timeout()), rm, SLOT(renderFunction()));
+    connect(timer, SIGNAL(timeout()), this, SLOT(messageCycle()));
     timer->start(5);
 }
 Window::~Window()
@@ -24,5 +54,7 @@ Window::~Window()
 
 void Window::messageCycle()
 {
-    ;
+    inputSystem.update();
+    sp->update();
+    rm->renderFunction();
 }

@@ -112,7 +112,7 @@ void Sprite::setAnimation(QString name)
 
 void Sprite::setAnimation(int id)
 {
-    if (id < animations.count())
+    if (id < animations.count() && currentAnimation != id)
         currentAnimation = id;
 }
 
@@ -160,22 +160,30 @@ void Sprite::setScrollable(bool isScrollable)
 
 bool Sprite::update()
 {
+
     if (isPaused)
+    {
+        updated = false;
         return false;
+    }
     if (!isTimerStarted)
     {
         timer.restart();
         isTimerStarted = true;
+        updated = false;
         return false;
     }
     if (timer.hasExpired(animations.at(currentAnimation).animationTime))
     {
         nextFrame();
         timer.restart();
-        updated = true;
         return true;
     }
-    updated = false;
+    if (updated)
+    {
+        updated = false;
+        return true;
+    }
     return false;
 }
 
@@ -203,6 +211,7 @@ void Sprite::setPosition(float left_, float top_, float z_)
     lastFrame.leftDest_ = left;
     lastFrame.topDest_ = top;
     lastFrame.zIndex_ = z;
+    updated = true;
 }
 
 void Sprite::move(float x, float y, float z_)
@@ -211,12 +220,14 @@ void Sprite::move(float x, float y, float z_)
     top+=y;
     z = z_;
     lastFrame.translate(x,y,z_);
+    updated = true;
 
 }
 
 void Sprite::scaleTranslate(float xMult, float yMult)
 {
     lastFrame.scale(xMult,yMult);
+    updated = true;
 }
 
 bool Sprite::isSpriteCollision(Sprite *s)
@@ -227,6 +238,18 @@ bool Sprite::isSpriteCollision(Sprite *s)
 bool Sprite::isCursorCollision(int curX, int curY)
 {
     return getRect().contains(curX,curY);
+}
+
+void Sprite::rotate(float a)
+{
+    lastFrame.rotate_ += a;
+    updated = true;
+}
+
+void Sprite::setRotate(float a)
+{
+    lastFrame.rotate_ = a;
+    updated = true;
 }
 
 void Sprite::nextFrame()

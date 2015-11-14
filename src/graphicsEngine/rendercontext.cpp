@@ -4,11 +4,20 @@ renderContext::renderContext(QObject *parent) :
     QObject(parent)
 {
     contextImage = NULL;
+
+    horizontalScrollEnabled = false;
+    verticalScrollEnabled = false;
+    horizontalSmoothScrolling = false;
+    verticalSmoothScrolling = false;
 }
 
 renderContext::renderContext()
 {
     contextImage = NULL;
+    horizontalScrollEnabled = false;
+    verticalScrollEnabled = false;
+    horizontalSmoothScrolling = false;
+    verticalSmoothScrolling = false;
 }
 
 renderContext::~renderContext()
@@ -96,23 +105,26 @@ void renderContext::setSmoothScroll(float horizontal, float vertical)
 
 void renderContext::scrollTo(float left, float top)
 {
+    QPointF scrollSize(scrollRect.width(),scrollRect.height());
     if (horizontalScrollEnabled)
     {
         if (horizontalMinBoundEnabled && left < minScrollLeft)
             scrollRect.setLeft(minScrollLeft);
-        if (horizontalMaxBoundEnabled && left > maxScrollLeft)
+        else if (horizontalMaxBoundEnabled && left > maxScrollLeft)
             scrollRect.setLeft(maxScrollLeft);
         else
             scrollRect.setLeft(left);
+        scrollRect.setWidth(scrollSize.x());
     }
     if (verticalScrollEnabled)
     {
         if (verticalMinBoundEnabled && top < minScrollTop)
             scrollRect.setTop(minScrollTop);
-        if (verticalMaxBoundEnabled && top > maxScrollTop)
+        else if (verticalMaxBoundEnabled && top > maxScrollTop)
             scrollRect.setTop(maxScrollTop);
         else
             scrollRect.setTop(top);
+        scrollRect.setHeight(scrollSize.y());
     }
 }
 

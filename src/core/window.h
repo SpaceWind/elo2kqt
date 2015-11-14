@@ -5,6 +5,7 @@
 #include <QtOpenGL>
 #include <rendermanager.h>
 #include "inputsystem.h"
+#include "simpleplayer.h"
 
 class RenderManager;
 class Window : public QWidget
@@ -25,6 +26,7 @@ private:
     RenderManager * rm;
     int elapsed;
     InputSystem inputSystem;
+    SimplePlayer *sp;
 
 };
 

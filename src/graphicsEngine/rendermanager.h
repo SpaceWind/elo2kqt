@@ -6,6 +6,7 @@
 #include <QPainter>
 #include <QVector>
 #include <QRect>
+#include <QList>
 #include <QDebug>
 #include "sprite.h"
 #include "rendercontext.h"
@@ -21,19 +22,21 @@ public:
 public slots:
     void renderFunction();
     void init();
+    void addSprite(Sprite* s);
+    void removeSprite(Sprite* s);
+    void setContext(renderContext* c);
+
 
 protected:
     void paintEvent(QPaintEvent *event);
     void renderFunction(QPainter *painter, QPaintEvent *event);
-
-
-   // QVector<renderInfo> filterSprites(QRect outerRect, QRect innerRect, QVector<renderInfo> sprites);
+    bool updateSprites();
 
 private:
     QBrush background;
     QImage img;
-    Sprite* s;
-    renderContext renderContext_;
+    renderContext * renderContext_;
+    QList<Sprite*> sprites;
 
 };
 #endif // RENDERMANAGER_H
