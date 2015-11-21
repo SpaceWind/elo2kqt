@@ -12,7 +12,7 @@ public:
     ~TimeSystem(){;}
     int getSystemTime() {return msecs;}
     int elapsed(int prev) {return msecs - prev;}
-    virtual bool update();
+    virtual bool update(uint);
 protected:
     TimeSystem();
     int msecs;

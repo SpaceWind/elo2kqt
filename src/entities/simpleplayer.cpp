@@ -20,32 +20,34 @@ SimplePlayer::~SimplePlayer()
 
 }
 
-bool SimplePlayer::update()
+bool SimplePlayer::update(uint delta)
 {
+    const static float speed = 150;
+    float deltaF = float(delta)/1000000.f;
     if (keyComponent->isUpPressed())
-        s->move(0.0f,-1.f);
+        s->move(0.0f,-deltaF*speed);
     if (keyComponent->isDownPressed())
-        s->move(0.0f,1.f);
+        s->move(0.0f,deltaF*speed);
     if (keyComponent->isLeftPressed())
     {
-        s->move(-1.f,0.f);
+        s->move(-deltaF*speed,0.f);
         s->setAnimation("go_left");
     }
     if (keyComponent->isRightPressed())
     {
-        s->move(1.f,0.f);
+        s->move(deltaF*speed,0.f);
         s->setAnimation("go_right");
     }
     if (!keyComponent->isDownPressed() && !keyComponent->isLeftPressed() && !keyComponent->isRightPressed() && !keyComponent->isUpPressed())
         s->setAnimation("still");
     if (keyComponent->isSpacePressed())
     {
-        s->rotate(15.f);
+        s->rotate(deltaF*speed);
         s->scaleTranslate(0.99f,0.99f);
     }
     if (keyComponent->isShiftPressed())
     {
-        s->rotate(-15.f);
+        s->rotate(-deltaF*speed);
         s->scaleTranslate(1.01f,1.01f);
     }
 
@@ -59,18 +61,20 @@ bool SimplePlayer::update()
     {
         auto lastFrame = s->render();
         if (lastFrame.leftDest_ + lastFrame.destWidth_ /2.f < xAim / rm->getContext()->scaleCoefLeft())
-            s->move(0.3f,0.f);
+            s->move(deltaF*speed/3.0f,0.f);
         else
-            s->move(-0.3f,0.f);
+            s->move(-deltaF*speed/3.0f,0.f);
         if (lastFrame.topDest_ + lastFrame.destHeight_ /2.f < yAim / rm->getContext()->scaleCoefTop())
-            s->move(0.f,0.3f);
+            s->move(0.f,deltaF*speed/3.0f);
         else
-            s->move(0.f,-0.3f);
+            s->move(0.f,-deltaF*speed/3.0f);
 
         if (fabs(lastFrame.leftDest_ + lastFrame.destWidth_ /2.f - xAim / rm->getContext()->scaleCoefLeft()) < 1.0f &&
             fabs(lastFrame.topDest_ + lastFrame.destHeight_ /2.f - yAim / rm->getContext()->scaleCoefTop()) < 1.0f)
             getAim = false;
     }
+    if (mouseComponent->isRotationEnabled())
+        s->rotate(1.4f*deltaF*speed);
 
     return true;
 }

@@ -17,7 +17,7 @@ public:
     virtual void removeMouseListener(MouseInputComponent *c);
 
     virtual bool eventFilter(QObject *object, QEvent *event) override;
-    virtual bool update(){return false;}
+    virtual bool update(uint){return false;}
 private:
     MouseInputComponent::mouseButton buildMouseButton(Qt::MouseButtons buttons);
     QList<InputComponent*> keyListeners;

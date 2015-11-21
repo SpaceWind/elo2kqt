@@ -1,8 +1,26 @@
 #include "window.h"
 #include "defines.h"
+#include <fmod.h>
 Window::Window()
 {
     setWindowTitle(tr("2D Painting on Native and OpenGL Widgets"));
+
+    FMOD_SYSTEM * soundSystem;
+    FMOD_System_Create(&soundSystem);
+    FMOD_System_Init(soundSystem,32,FMOD_INIT_NORMAL,0);
+    FMOD_SOUND * sound;
+    FMOD_CHANNEL * channel;
+    FMOD_System_CreateSound(soundSystem,"data/sound/music/twilight.mp3",FMOD_LOOP_NORMAL,0,&sound);
+    FMOD_System_PlaySound(soundSystem,sound,0,false,&channel);
+    FMOD_Channel_SetVolume(channel,0.2f);
+
+  //  FMOD::Sound * sound;
+   // FMOD::Channel * channel;
+    //soundSystem->createSound("data/sound/music/twilight.mp3", FMOD_LOOP_OFF, 0, &sound);
+    //soundSystem->playSound(sound,0,false,&channel);
+  //  soundSystem->playSound(1 /*channel #1*/, sound, true /*start paused*/, &channel);
+    // actually play sound
+  //  channel->setPaused(false);
 
     QRect screenRect = QApplication::desktop()->screenGeometry();
 
@@ -42,6 +60,8 @@ Window::Window()
     QTimer *timer = new QTimer(this);
     connect(timer, SIGNAL(timeout()), this, SLOT(messageCycle()));
     timer->start(5);
+    elapsedTimer = new QElapsedTimer();
+    elapsedTimer->start();
 }
 Window::~Window()
 {
@@ -50,7 +70,10 @@ Window::~Window()
 
 void Window::messageCycle()
 {
-    inputSystem.update();
-    sp->update();
+    qint64 delta = elapsedTimer->nsecsElapsed();
+    elapsedTimer->restart();
+    inputSystem.update(delta);
+    sp->update(delta/1000);
+  //  qDebug() << delta/1000;
     rm->renderFunction();
 }

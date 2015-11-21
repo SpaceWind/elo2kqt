@@ -13,14 +13,16 @@ public:
     virtual void mouseReleased(mouseButton, int, int){;}
     virtual void mouseMove(mouseButton, int, int){;}
     virtual void mouseDoubleClick(mouseButton, int, int){;}
-    virtual bool update(){return true;}
+    virtual bool update(uint){return true;}
     float getLeft();
     float getTop();
     bool isClicked(){return clicked;}
+    bool isRotationEnabled(){return rotationEnabled;}
 private:
     float lastClickLeft;
     float lastClickTop;
     bool clicked;
+    bool rotationEnabled;
 };
 
 #endif // SIMPLEPLAYERMOUSEINPUTCOMPONENT_H

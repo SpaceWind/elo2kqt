@@ -6,7 +6,7 @@
 #include <defines.h>
 
 RenderManager::RenderManager(QWidget *parent, int width, int height)
-    : QGLWidget(QGLFormat(QGL::SampleBuffers), parent)
+    : QGLWidget(parent)
 {
     setFixedSize(width, height);
     setAutoFillBackground(false);
@@ -44,16 +44,10 @@ void RenderManager::renderFunction(QPainter *painter, QPaintEvent *event)
 {
     static QElapsedTimer t;
     static bool started = false;
-    static qint64 nsecsPrev = 0;
     if (!started)
     {
         t.restart();
         started = true;
-    }
-    else
-    {
-        qDebug()<<(t.nsecsElapsed()-nsecsPrev)/1000;
-        nsecsPrev = t.nsecsElapsed();
     }
     painter->fillRect(event->rect(), background);
 

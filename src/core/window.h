@@ -3,6 +3,7 @@
 
 #include <QWidget>
 #include <QtOpenGL>
+#include <QElapsedTimer>
 #include <rendermanager.h>
 #include "inputsystem.h"
 #include "simpleplayer.h"
@@ -27,6 +28,7 @@ private:
     int elapsed;
     InputSystem inputSystem;
     SimplePlayer *sp;
+    QElapsedTimer * elapsedTimer;
 
 };
 

@@ -6,7 +6,7 @@
 class AbstractSystem
 {
 public:
-    virtual bool update()=0;
+    virtual bool update(uint delta)=0;
 };
 
 #endif // GAMESYSTEM_H

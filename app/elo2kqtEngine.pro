@@ -28,7 +28,12 @@ RESOURCES += \
 
 win32:CONFIG(release, debug|release): LIBS += -L$$PWD/../libs/defines_lib/bin/ -ldefinesLib
 else:win32:CONFIG(debug, debug|release): LIBS += -L$$PWD/../libs/defines_lib/bin/ -ldefinesLibd
-else:unix:!macx: LIBS += -L$$PWD/../libs/defines_lib/bin/ -ldefinesLib
 
 INCLUDEPATH += $$PWD/../libs/defines_lib/headers
 DEPENDPATH += $$PWD/../libs/defines_lib/bin/
+
+win32:CONFIG(release, debug|release): LIBS += -L$$PWD/../libs/fmod/bin/ -lfmod
+else:win32:CONFIG(debug, debug|release): LIBS += -L$$PWD/../libs/fmod/bin/ -lfmodl
+
+INCLUDEPATH += $$PWD/../libs/fmod/inc
+DEPENDPATH += $$PWD/../libs/fmod/bin

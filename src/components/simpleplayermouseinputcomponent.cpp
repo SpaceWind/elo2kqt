@@ -3,6 +3,7 @@
 simplePlayerMouseInputComponent::simplePlayerMouseInputComponent()
 {
     clicked = false;
+    rotationEnabled = false;
 }
 
 simplePlayerMouseInputComponent::~simplePlayerMouseInputComponent()
@@ -17,6 +18,10 @@ void simplePlayerMouseInputComponent::mousePressed(MouseInputComponent::mouseBut
         lastClickLeft = x;
         lastClickTop = y;
         clicked = true;
+    }
+    if (mb == MouseInputComponent::MOUSE_LEFT)
+    {
+        rotationEnabled = !rotationEnabled;
     }
 }
 

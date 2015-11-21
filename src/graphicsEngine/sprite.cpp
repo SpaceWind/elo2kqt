@@ -357,7 +357,7 @@ QImage *SpriteFabric::buildFramesByDesc(QString desc, bool attach)
     QStringList descStrings = desc.split("\r\n");
     pt.parse(descStrings);
 
-    QImage *context = createTransparentImage(":/data/fx/textures/"+pt.texture,pt.trColor);
+    QImage *context = createTransparentImage("data/fx/textures/"+pt.texture,pt.trColor);
     if (attach)
         foreach (const QString& att, pt.attachments)
         {

@@ -11,7 +11,7 @@ public:
     ~SimplePlayerInputComponent();
     virtual void keyPressed(int key);
     virtual void keyReleased(int key);
-    virtual bool update(){return true;}
+    virtual bool update(uint){return true;}
     bool isUpPressed(){return upPressed;}
     bool isLeftPressed(){return leftPressed;}
     bool isRightPressed(){return rightPressed;}

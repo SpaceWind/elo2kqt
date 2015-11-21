@@ -6,7 +6,7 @@
 class GameComponent
 {
 public:
-    virtual bool update()=0;
+    virtual bool update(uint delta)=0;
 };
 
 #endif // COMPONENT_H

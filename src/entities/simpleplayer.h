@@ -20,7 +20,7 @@ public:
 signals:
 
 public slots:
-    virtual bool update();
+    virtual bool update(uint delta);
 private:
     Sprite * s;
     RenderManager * rm;
