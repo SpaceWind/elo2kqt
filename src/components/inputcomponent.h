@@ -78,7 +78,6 @@ class MouseInputComponent : public QObject, public GameComponent
 {
     Q_OBJECT
 public:
-    explicit MouseInputComponent(QObject *parent = 0);
     enum mouseButton {MOUSE_LEFT = 0, MOUSE_RIGHT = 1, MOUSE_BOTH = 2, MOUSE_NONE = 3};
 signals:
 

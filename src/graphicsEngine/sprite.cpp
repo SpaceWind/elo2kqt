@@ -226,6 +226,21 @@ void Sprite::move(float x, float y, float z_)
 
 void Sprite::scaleTranslate(float xMult, float yMult)
 {
+    float centerL = (lastFrame.leftDest_ + lastFrame.destWidth_)/2.f;
+    float centerT = (lastFrame.topDest_ + lastFrame.destHeight_)/2.f;
+
+    lastFrame.scale(xMult,yMult);
+
+    float newCenterL = (lastFrame.leftDest_ + lastFrame.destWidth_)/2.f;
+    float newCenterT = (lastFrame.topDest_ + lastFrame.destHeight_)/2.f;
+
+    lastFrame.translate(centerL - newCenterL,centerT - newCenterT);
+
+    updated = true;
+}
+
+void Sprite::scale(float xMult, float yMult)
+{
     lastFrame.scale(xMult,yMult);
     updated = true;
 }

@@ -44,8 +44,8 @@ struct renderInfo
     int leftOffset_;         //pixels from FRAME left
     int topOffset_;          //pixels from FRAME top
 
-    int destWidth_;          //mean scaling on draw item; if == -1 then set by widthFrame
-    int destHeight_;         //--same
+    float destWidth_;          //mean scaling on draw item; if == -1 then set by widthFrame
+    float destHeight_;         //--same
     float rotate_;           //rotate painter before drawing. It undo rotating after drawing item;
     bool isScrollable;
 };
@@ -116,6 +116,7 @@ public:
     void setPosition(float left, float top, float z=MIN_Z);
     void move(float x, float y, float z_=MIN_Z);
     void scaleTranslate(float xMult, float yMult);
+    void scale(float xMult, float yMult);
     bool isSpriteCollision(Sprite * s);
     bool isCursorCollision(int curX, int curY);
     void rotate(float a);

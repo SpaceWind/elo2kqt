@@ -4,25 +4,29 @@
 #include <QObject>
 #include <inputcomponent.h>
 #include <rendermanager.h>
+#include <simpleplayerinputcomponent.h>
+#include <simpleplayermouseinputcomponent.h>
 
-class SimplePlayer : public InputComponent
+class SimplePlayer : public QObject
 {
     Q_OBJECT
 public:
     explicit SimplePlayer(RenderManager * m);
     ~SimplePlayer();
 
+    SimplePlayerInputComponent * keyComponent;
+    simplePlayerMouseInputComponent * mouseComponent;
+
 signals:
 
 public slots:
-    virtual void keyPressed(int key);
-    virtual void keyReleased(int key);
     virtual bool update();
 private:
     Sprite * s;
     RenderManager * rm;
     bool movingEnabled;
-    bool upPressed, leftPressed, rightPressed, downPressed, spacePressed;
+    bool getAim;
+    float xAim, yAim;
 };
 
 #endif // SIMPLEPLAYER_H

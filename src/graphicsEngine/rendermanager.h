@@ -25,6 +25,7 @@ public slots:
     void addSprite(Sprite* s);
     void removeSprite(Sprite* s);
     void setContext(renderContext* c);
+    renderContext * getContext(){return renderContext_;}
 
 
 protected:

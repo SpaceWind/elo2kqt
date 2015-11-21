@@ -32,6 +32,9 @@ public:
     void scrollTo(float left, float top);
     void scroll(float left, float top);
 
+    float scaleCoefLeft(){return contextWidthCoef;}
+    float scaleCoefTop(){return contextHeightCoef;}
+
     QVector<renderInfo *> render();
 
 

@@ -105,7 +105,7 @@ void RenderManager::paintEvent(QPaintEvent *event)
 {
     QPainter painter;
     painter.begin(this);
-    painter.setRenderHint(QPainter::Antialiasing);
+    painter.setRenderHint(QPainter::HighQualityAntialiasing);
     renderFunction(&painter, event);
     painter.end();
 }

@@ -23,16 +23,11 @@ Window::Window()
     rm->setContext(renderContext_);
 
     SpriteFabric * sf = SpriteFabric::getInstance();
-    Sprite *s = sf->newSprite("kappa+kappa_blue_boots");
-    s->setAnimation("go_right");
-    s->move(100,100);
-    rm->addSprite(s);
 
     Sprite * horse = sf->newSprite("horse");
     horse->setAnimation("default");
     horse->move(0,0,-1);
-    horse->scaleTranslate(float(CONTEXT_WIDTH)/horse->getRect().width(),float(CONTEXT_HEIGHT)/horse->getRect().height());
-   // horse->rotate(45.f);
+    horse->scale(float(CONTEXT_WIDTH)/horse->getRect().width(),float(CONTEXT_HEIGHT)/horse->getRect().height());
     rm->addSprite(horse);
 
     rm->showFullScreen();
@@ -40,7 +35,8 @@ Window::Window()
     this->installEventFilter(&inputSystem);
 
     sp = new SimplePlayer(rm);
-    inputSystem.addKeyListener(sp);
+    inputSystem.addKeyListener(sp->keyComponent);
+    inputSystem.addMouseListener(sp->mouseComponent);
 
 
     QTimer *timer = new QTimer(this);
